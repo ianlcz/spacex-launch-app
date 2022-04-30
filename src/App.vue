@@ -1,30 +1,40 @@
 <template>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </nav>
-  <router-view />
+  <div class="App">
+    <router-view />
+  </div>
 </template>
 
 <style>
+@font-face {
+  font-family: D-DIN;
+  src: url(fonts/D-DIN.woff2) format("woff2");
+  font-style: normal;
+  font-weight: 400;
+  font-display: block;
+}
+
+@font-face {
+  font-family: D-DIN-Bold;
+  src: url(fonts/D-DIN-Bold.woff2) format("woff2");
+  font-style: normal;
+  font-weight: 400;
+  font-display: block;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-
-nav {
-  padding: 30px;
-}
-
-nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-nav a.router-link-exact-active {
-  color: #42b983;
+  height: 100vh;
+  margin: 0;
+  padding: 0 1em;
+  background: #000;
+  font-family: D-DIN-Bold, Helvetica, Arial, sans-serif;
+  font-style: normal;
+  color: #fff;
+  text-transform: uppercase;
 }
 </style>
