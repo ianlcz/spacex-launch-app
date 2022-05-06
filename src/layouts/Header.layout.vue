@@ -11,8 +11,17 @@
   </div>
 </template>
 
+<script lang="ts">
+import { defineComponent } from "vue";
+
+export default defineComponent({
+  name: "HeaderLayout",
+});
+</script>
+
 <style scoped>
 div.header-layout {
+  padding-top: 0.5em;
   display: flex;
   flex-direction: row;
   align-items: center;

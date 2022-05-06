@@ -9,7 +9,6 @@
   font-family: D-DIN;
   src: url(fonts/D-DIN.woff2) format("woff2");
   font-style: normal;
-  font-weight: 400;
   font-display: block;
 }
 
@@ -17,7 +16,6 @@
   font-family: D-DIN-Bold;
   src: url(fonts/D-DIN-Bold.woff2) format("woff2");
   font-style: normal;
-  font-weight: 400;
   font-display: block;
 }
 
