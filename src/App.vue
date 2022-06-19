@@ -26,10 +26,10 @@ body {
 }
 
 #app {
-  height: 100vh;
+  min-height: 100vh;
   margin: 0;
   padding: 0 1em;
-  background: #000;
+  background: #1c1c1e;
   font-family: D-DIN-Bold, Helvetica, Arial, sans-serif;
   font-style: normal;
   color: #fff;

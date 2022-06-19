@@ -1,24 +1,16 @@
+import { IPad, Pad } from "./pad.model";
 import axios from "axios";
 
-export interface ILaunchpad {
-  full_name: string;
-  locality: string;
-  name: string;
-  region: string;
-  getOne(launchpad_id: string): void;
+export interface ILaunchpad extends IPad {
+  full_name: string | null;
 }
 
-export class Launchpad implements ILaunchpad {
-  public full_name: string;
-  public locality: string;
-  public name: string;
-  public region: string;
+export class Launchpad extends Pad implements ILaunchpad {
+  public full_name: string | null;
 
   constructor(launchpad: ILaunchpad | null = null) {
-    this.full_name = launchpad ? launchpad.full_name : "";
-    this.locality = launchpad ? launchpad.locality : "";
-    this.name = launchpad ? launchpad.name : "";
-    this.region = launchpad ? launchpad.region : "";
+    super();
+    this.full_name = launchpad ? launchpad.full_name : null;
   }
 
   public getOne(launchpad_id: string): void {
@@ -31,6 +23,8 @@ export class Launchpad implements ILaunchpad {
         this.locality = launchpad.locality;
         this.name = launchpad.name;
         this.region = launchpad.region;
+
+        super.getWeather(launchpad.latitude, launchpad.longitude);
       })
       .catch((err) => console.error(err.message));
   }

@@ -1,22 +1,20 @@
+import { IPad, Pad } from "./pad.model";
 import axios from "axios";
 
-export interface ILandpad {
-  name: string;
-  type: string;
+export interface ILandpad extends IPad {
+  type: string | null;
   isAttempt: boolean;
   isSuccess: boolean;
-  getOne(landpad_id: string): void;
 }
 
-export class Landpad implements ILandpad {
-  public name: string;
-  public type: string;
+export class Landpad extends Pad implements ILandpad {
+  public type: string | null;
   public isAttempt: boolean;
   public isSuccess: boolean;
 
   constructor(landpad: ILandpad | null = null) {
-    this.name = landpad ? landpad.name : "";
-    this.type = landpad ? landpad.type : "";
+    super();
+    this.type = landpad ? landpad.type : null;
     this.isAttempt = landpad ? landpad.isAttempt : false;
     this.isSuccess = landpad ? landpad.isSuccess : false;
   }
@@ -29,6 +27,10 @@ export class Landpad implements ILandpad {
 
         this.name = landpad.name;
         this.type = landpad.type;
+        this.locality = landpad.locality;
+        this.region = landpad.region;
+
+        super.getWeather(landpad.latitude, landpad.longitude);
       })
       .catch((err) => console.error(err.message));
   }

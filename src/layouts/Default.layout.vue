@@ -21,7 +21,9 @@ export default defineComponent({
 
 <style scoped>
 div.default-layout > main.default-layout-main {
-  margin-top: 1em;
-  text-align: center;
+  position: absolute;
+  width: 100%;
+  top: 50%;
+  transform: translateY(-50%);
 }
 </style>

@@ -1,16 +1,28 @@
 <template>
   <default-layout>
-    <p v-if="isLoading">Loading launch data...</p>
-    <div class="home" v-else>
-      <div class="global-information">
-        <div>
-          <launch-information-component
-            :launchName="nextLaunch.name"
-            :launchDate="new Date(nextLaunch.launchDate)"
-          />
-          <countdown-component :launchDate="new Date(nextLaunch.launchDate)" />
-        </div>
+    <div class="home">
+      <div
+        :class="
+          now < new Date(nextLaunch.date) ? 'justify-between' : 'justify-center'
+        "
+      >
+        <launch-information-component
+          :launchName="nextLaunch.name ? nextLaunch.name : ''"
+          :launchDate="new Date(nextLaunch.date)"
+        />
+
+        <countdown-component
+          :launchDate="new Date(nextLaunch.date)"
+          v-if="
+            now.getTime() < new Date(nextLaunch.date).getTime() + 30 * 60 * 1000
+          "
+        />
       </div>
+
+      <youtube-player-component
+        :youtubeId="nextLaunch.youtube_id"
+        v-if="nextLaunch.youtube_id"
+      />
     </div>
   </default-layout>
 </template>
@@ -21,6 +33,7 @@ import DefaultLayout from "@/layouts/Default.layout.vue";
 import { ILaunch, Launch } from "@/models/launch.model";
 import LaunchInformationComponent from "@/components/Home/LaunchInformation.component.vue";
 import CountdownComponent from "@/components/Home/Countdown.component.vue";
+import YoutubePlayerComponent from "@/components/YouTubePlayer.component.vue";
 
 export default defineComponent({
   name: "HomeView",
@@ -28,12 +41,15 @@ export default defineComponent({
     DefaultLayout,
     LaunchInformationComponent,
     CountdownComponent,
+    YoutubePlayerComponent,
   },
   data: (): {
     nextLaunch: ILaunch;
+    now: Date;
     isLoading: boolean;
   } => ({
     nextLaunch: new Launch(),
+    now: new Date(),
     isLoading: true,
   }),
   created() {
@@ -47,14 +63,20 @@ export default defineComponent({
 div.home {
   display: flex;
   flex-direction: column;
+  width: 70%;
+  margin: 0 auto;
 }
-div.home > div.global-information {
-  width: 60%;
-}
-div.home > div.global-information > div {
+
+div.home > div.justify-between,
+div.home > div.justify-center {
   display: flex;
   flex-direction: row;
   align-items: center;
+}
+div.home > div.justify-between {
   justify-content: space-between;
+}
+div.home > div.justify-center {
+  justify-content: center;
 }
 </style>

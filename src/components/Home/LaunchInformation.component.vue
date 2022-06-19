@@ -1,9 +1,11 @@
 <template>
-  <div class="next-launch">
-    <h1>
+  <div class="launch-information">
+    <h1 :class="now >= launchDate ? 'text-center' : 'text-left'">
       {{ now >= launchDate ? "Current launch" : "Next launch" }}
     </h1>
+
     <h2>{{ launchName }}</h2>
+
     <p v-if="now < launchDate">
       {{ dateTime(launchDate) }}
     </p>
@@ -16,6 +18,11 @@ import moment from "moment";
 
 export default defineComponent({
   name: "LaunchInformationComponent",
+  computed: {
+    isCurrentLaunch(): boolean {
+      return this.now >= this.launchDate;
+    },
+  },
   props: {
     launchName: { type: String, required: true },
     launchDate: { type: Date, required: true },
@@ -32,21 +39,31 @@ export default defineComponent({
 </script>
 
 <style scoped>
-div.next-launch {
+div.launch-information {
   line-height: 2px;
   text-align: left;
 }
-div.next-launch > h1 {
+
+div.launch-information > h1.text-center,
+div.launch-information > h1.text-left {
   font-family: D-DIN, Helvetica, Arial, sans-serif;
   font-size: 20px;
   font-weight: 100;
 }
-div.next-launch > h2 {
+div.launch-information > h1.text-center {
+  text-align: center;
+}
+div.launch-information > h1.text-left {
+  text-align: left;
+}
+
+div.launch-information > h2 {
   font-family: D-DIN-Bold, Helvetica, Arial, sans-serif;
   font-size: 46px;
   font-weight: 400;
+  text-transform: initial;
 }
-div.next-launch > p {
+div.launch-information > p {
   font-family: D-DIN, Helvetica, Arial, sans-serif;
   font-size: 14px;
   font-weight: 100;
