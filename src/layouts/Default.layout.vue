@@ -21,9 +21,9 @@ export default defineComponent({
 
 <style scoped>
 div.default-layout > main.default-layout-main {
-  position: absolute;
-  width: 100%;
-  top: 50%;
-  transform: translateY(-50%);
+  display: flex;
+  min-height: calc(100vh - 60px);
+  justify-content: center;
+  align-items: center;
 }
 </style>

@@ -1,6 +1,10 @@
 <template>
   <default-layout>
-    <div class="home">
+    <div v-if="isLoading">
+      Loading data for the
+      {{ now < new Date(nextLaunch.date) ? "next" : "current" }} launch...
+    </div>
+    <div class="home" v-else>
       <div
         :class="
           now < new Date(nextLaunch.date) ? 'justify-between' : 'justify-center'
@@ -54,7 +58,7 @@ export default defineComponent({
   }),
   created() {
     this.nextLaunch.getNextLaunch();
-    this.isLoading = false;
+    setTimeout(() => (this.isLoading = false), 2000);
   },
 });
 </script>
