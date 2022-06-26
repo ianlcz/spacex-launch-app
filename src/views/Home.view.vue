@@ -2,24 +2,20 @@
   <default-layout>
     <div v-if="isLoading">
       Loading data for the
-      {{ now < new Date(nextLaunch.date) ? "next" : "current" }} launch...
+      {{ now < nextLaunch.date ? "next" : "current" }} launch...
     </div>
     <div class="home" v-else>
       <div
-        :class="
-          now < new Date(nextLaunch.date) ? 'justify-between' : 'justify-center'
-        "
+        :class="now < nextLaunch.date ? 'justify-between' : 'justify-center'"
       >
         <launch-information-component
           :launchName="nextLaunch.name ? nextLaunch.name : ''"
-          :launchDate="new Date(nextLaunch.date)"
+          :launchDate="nextLaunch.date"
         />
 
         <countdown-component
-          :launchDate="new Date(nextLaunch.date)"
-          v-if="
-            now.getTime() < new Date(nextLaunch.date).getTime() + 30 * 60 * 1000
-          "
+          :launchDate="nextLaunch.date"
+          v-if="now.getTime() < nextLaunch.date.getTime() + 30 * 60 * 1000"
         />
       </div>
 

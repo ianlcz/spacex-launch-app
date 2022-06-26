@@ -1,40 +1,32 @@
+import axios from "axios";
 import { ILaunchpad, Launchpad } from "./launchpad.model";
 import { ILandpad, Landpad } from "./landpad.model";
 import { IRocket, Rocket } from "./rocket.model";
-import axios from "axios";
+import { IPayload, Payload } from "./payload.model";
 
 export interface ILaunch {
-  name: string | null;
-  mission_picture: string | null;
-  details: string | null;
-  youtube_id: string | null;
-  date: Date;
-  launchpad: ILaunchpad | null;
-  landpad: ILandpad | null;
-  rocket: IRocket | null;
+  name?: string;
+  mission_picture?: string;
+  description?: string;
+  youtube_id?: string;
+  date?: Date;
+  payloads: IPayload[];
+  launch_site?: ILaunchpad;
+  landing_site?: ILandpad;
+  rocket?: IRocket;
   getNextLaunch(): void;
 }
 
 export class Launch implements ILaunch {
-  public name: string | null;
-  public mission_picture: string | null;
-  public details: string | null;
-  public youtube_id: string | null;
-  public date: Date;
-  public launchpad: ILaunchpad | null;
-  public landpad: ILandpad | null;
-  public rocket: IRocket | null;
-
-  constructor(launch: ILaunch | null = null) {
-    this.name = launch ? launch.name : null;
-    this.mission_picture = launch ? launch.mission_picture : null;
-    this.details = launch ? launch.details : null;
-    this.youtube_id = launch ? launch.youtube_id : null;
-    this.launchpad = launch ? launch.launchpad : new Launchpad();
-    this.landpad = launch ? launch.landpad : new Landpad();
-    this.rocket = launch ? launch.rocket : new Rocket();
-    this.date = launch ? launch.date : new Date();
-  }
+  public name?: string;
+  public mission_picture?: string;
+  public description?: string;
+  public youtube_id?: string;
+  public date?: Date = undefined;
+  public payloads: IPayload[] = [];
+  public launch_site?: ILaunchpad = new Launchpad();
+  public landing_site?: ILandpad = new Landpad();
+  public rocket?: IRocket = new Rocket();
 
   public getNextLaunch(): void {
     axios
@@ -45,16 +37,20 @@ export class Launch implements ILaunch {
         this.name = launch.name;
         this.mission_picture = launch.links.patch.large;
         this.date = new Date(launch.date_utc);
-        this.details = launch.details;
+        this.description = launch.details;
         this.youtube_id = launch.links.youtube_id;
 
-        if (this.launchpad) this.launchpad.getOne(launch.launchpad);
+        this.payloads = launch.payloads.map(
+          (payload_id: string) => new Payload(payload_id)
+        );
 
-        if (this.landpad && launch.cores[0].landpad) {
-          this.landpad.getOne(launch.cores[0].landpad);
+        this.launch_site?.getOne(launch.launchpad);
 
-          this.landpad.isAttempt = launch.cores[0].landing_attempt;
-          this.landpad.isSuccess = launch.cores[0].landing_success;
+        if (this.landing_site && launch.cores[0].landpad) {
+          this.landing_site?.getOne(launch.cores[0].landpad);
+
+          this.landing_site.isAttempt = launch.cores[0].landing_attempt;
+          this.landing_site.isSuccess = launch.cores[0].landing_success;
         }
 
         axios
@@ -63,9 +59,8 @@ export class Launch implements ILaunch {
             const core = response.data;
 
             if (this.rocket) {
-              this.rocket.getOne(launch.rocket);
+              this.rocket?.getOne(launch.rocket);
 
-              this.rocket.flight_number = launch.flight_number;
               this.rocket.block = core.block;
               this.rocket.serial = core.serial;
             }

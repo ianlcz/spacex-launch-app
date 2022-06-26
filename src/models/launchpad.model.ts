@@ -1,16 +1,17 @@
-import { IPad, Pad } from "./pad.model";
 import axios from "axios";
+import { IPad, Pad } from "./pad.model";
 
 export interface ILaunchpad extends IPad {
-  full_name: string | null;
+  full_name?: string;
+  launches?: number;
 }
 
 export class Launchpad extends Pad implements ILaunchpad {
-  public full_name: string | null;
+  public full_name?: string;
+  public launches?: number;
 
-  constructor(launchpad: ILaunchpad | null = null) {
+  constructor() {
     super();
-    this.full_name = launchpad ? launchpad.full_name : null;
   }
 
   public getOne(launchpad_id: string): void {
@@ -20,10 +21,14 @@ export class Launchpad extends Pad implements ILaunchpad {
         const launchpad = response.data;
 
         this.full_name = launchpad.full_name;
+        this.about = launchpad.details;
         this.locality = launchpad.locality;
         this.name = launchpad.name;
         this.region = launchpad.region;
-
+        this.launches = launchpad.launch_attempts + 1;
+        this.success_rate = Math.round(
+          (launchpad.launch_successes / launchpad.launch_attempts) * 100
+        );
         super.getWeather(launchpad.latitude, launchpad.longitude);
       })
       .catch((err) => console.error(err.message));
