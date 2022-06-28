@@ -29,7 +29,7 @@ body {
   min-height: 100vh;
   margin: 0;
   padding: 0 1em;
-  background: #1c1c1e;
+  background: #1e293b;
   font-family: D-DIN-Bold, Helvetica, Arial, sans-serif;
   font-style: normal;
   color: #fff;

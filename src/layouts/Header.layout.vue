@@ -51,7 +51,7 @@ div.header-layout > nav a {
   font-weight: 400;
   font-style: normal;
   text-decoration: none;
-  color: #979797;
+  color: #94a3b8;
 }
 
 div.header-layout > nav a.router-link-exact-active {

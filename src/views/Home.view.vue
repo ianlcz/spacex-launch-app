@@ -2,20 +2,28 @@
   <default-layout>
     <div v-if="isLoading">
       Loading data for the
-      {{ now < nextLaunch.date ? "next" : "current" }} launch...
+      {{ nextLaunch.date && now < nextLaunch.date ? "next" : "current" }}
+      launch...
     </div>
     <div class="home" v-else>
       <div
-        :class="now < nextLaunch.date ? 'justify-between' : 'justify-center'"
+        :class="
+          nextLaunch.date && now < nextLaunch.date
+            ? 'justify-between'
+            : 'justify-center'
+        "
       >
         <launch-information-component
           :launchName="nextLaunch.name ? nextLaunch.name : ''"
-          :launchDate="nextLaunch.date"
+          :launchDate="nextLaunch.date || new Date()"
         />
 
         <countdown-component
           :launchDate="nextLaunch.date"
-          v-if="now.getTime() < nextLaunch.date.getTime() + 30 * 60 * 1000"
+          v-if="
+            nextLaunch.date &&
+            now.getTime() < nextLaunch.date.getTime() + 30 * 60 * 1000
+          "
         />
       </div>
 
@@ -32,7 +40,7 @@ import { defineComponent } from "vue";
 import DefaultLayout from "@/layouts/Default.layout.vue";
 import { ILaunch, Launch } from "@/models/launch.model";
 import LaunchInformationComponent from "@/components/Home/LaunchInformation.component.vue";
-import CountdownComponent from "@/components/Home/Countdown.component.vue";
+import CountdownComponent from "@/components/Home/Countdown/Countdown.component.vue";
 import YoutubePlayerComponent from "@/components/YouTubePlayer.component.vue";
 
 export default defineComponent({
