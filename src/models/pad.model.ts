@@ -9,7 +9,7 @@ export interface IPad {
   getOne(pad_id: string, latitude?: number, longitude?: number): void;
 }
 
-export class Pad implements IPad {
+export abstract class Pad implements IPad {
   public name?: string;
   public about?: string;
   public locality?: string;

@@ -1,36 +1,30 @@
 <template>
   <default-layout>
-    <div v-if="isLoading">
-      Loading data for the
-      {{ nextLaunch.date && now < nextLaunch.date ? "next" : "current" }}
-      launch...
-    </div>
+    <div v-if="!launch?.date">Loading launch data...</div>
+
     <div class="home" v-else>
       <div
         :class="
-          nextLaunch.date && now < nextLaunch.date
+          launch.date && now < launch.date
             ? 'justify-between'
             : 'justify-center'
         "
       >
         <launch-information-component
-          :launchName="nextLaunch.name ? nextLaunch.name : ''"
-          :launchDate="nextLaunch.date || new Date()"
+          :launchName="launch.name ? launch.name : ''"
+          :launchDate="launch.date || new Date()"
         />
 
         <countdown-component
-          :launchDate="nextLaunch.date"
+          :launchDate="launch.date"
           v-if="
-            nextLaunch.date &&
-            now.getTime() < nextLaunch.date.getTime() + 30 * 60 * 1000
+            launch.date &&
+            now.getTime() < launch.date.getTime() + 30 * 60 * 1000
           "
         />
       </div>
 
-      <youtube-player-component
-        :youtubeId="nextLaunch.youtube_id"
-        v-if="nextLaunch.youtube_id"
-      />
+      <youtube-player-component :youtubeId="launch.youtube_id" />
     </div>
   </default-layout>
 </template>
@@ -52,17 +46,14 @@ export default defineComponent({
     YoutubePlayerComponent,
   },
   data: (): {
-    nextLaunch: ILaunch;
+    launch?: ILaunch;
     now: Date;
-    isLoading: boolean;
   } => ({
-    nextLaunch: new Launch(),
+    launch: new Launch(),
     now: new Date(),
-    isLoading: true,
   }),
   created() {
-    this.nextLaunch.getNextLaunch();
-    setTimeout(() => (this.isLoading = false), 2000);
+    this.launch?.getNextLaunch();
   },
 });
 </script>

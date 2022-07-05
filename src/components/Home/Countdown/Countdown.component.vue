@@ -4,7 +4,7 @@
 
     <units-component
       :name="unit.name"
-      :value="unit.value"
+      :value="unit.value < 10 ? '0' + unit.value : unit.value"
       :key="index"
       v-for="(unit, index) in definedUnits"
     />

@@ -7,14 +7,13 @@
     <h2>{{ launchName }}</h2>
 
     <p v-if="now < launchDate">
-      {{ dateTime(launchDate) }}
+      {{ dateFormat(launchDate) }}
     </p>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import moment from "moment";
 
 export default defineComponent({
   name: "LaunchInformationComponent",
@@ -28,8 +27,14 @@ export default defineComponent({
     launchDate: { type: Date, required: true },
   },
   methods: {
-    dateTime(value: Date): string {
-      return moment(value).format("DD/MM/YYYY, HH:mm");
+    dateFormat(date: Date): string {
+      return date.toLocaleDateString("en-UK", {
+        year: "numeric",
+        month: "numeric",
+        day: "numeric",
+        hour: "numeric",
+        minute: "numeric",
+      });
     },
   },
   data: () => ({
