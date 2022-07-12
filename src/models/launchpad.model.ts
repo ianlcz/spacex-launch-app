@@ -1,12 +1,7 @@
 import axios from "axios";
-import { IPad, Pad } from "./pad.model";
+import { Pad } from "./pad.model";
 
-export interface ILaunchpad extends IPad {
-  full_name?: string;
-  launches?: number;
-}
-
-export class Launchpad extends Pad implements ILaunchpad {
+export class Launchpad extends Pad {
   public full_name?: string;
   public launches?: number;
 

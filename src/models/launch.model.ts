@@ -1,32 +1,19 @@
 import axios from "axios";
-import { ILaunchpad, Launchpad } from "./launchpad.model";
-import { ILandpad, Landpad } from "./landpad.model";
-import { IRocket, Rocket } from "./rocket.model";
-import { IPayload, Payload } from "./payload.model";
+import { Launchpad } from "./launchpad.model";
+import { Landpad } from "./landpad.model";
+import { Rocket } from "./rocket.model";
+import { Payload } from "./payload.model";
 
-export interface ILaunch {
-  name?: string;
-  mission_picture?: string;
-  description?: string;
-  youtube_id?: string;
-  date?: Date;
-  payloads: IPayload[];
-  launch_site?: ILaunchpad;
-  landing_site?: ILandpad;
-  rocket?: IRocket;
-  getNextLaunch(): void;
-}
-
-export class Launch implements ILaunch {
+export class Launch {
   public name?: string;
   public mission_picture?: string;
   public description?: string;
   public youtube_id?: string;
   public date?: Date = undefined;
-  public payloads: IPayload[] = [];
-  public launch_site?: ILaunchpad = new Launchpad();
-  public landing_site?: ILandpad = new Landpad();
-  public rocket?: IRocket = new Rocket();
+  public payloads: Payload[] = [];
+  public launch_site: Launchpad = new Launchpad();
+  public landing_site?: Landpad = new Landpad();
+  public rocket?: Rocket = new Rocket();
 
   public getNextLaunch(): void {
     axios
@@ -63,6 +50,7 @@ export class Launch implements ILaunch {
 
               this.rocket.block = core.block;
               this.rocket.serial = core.serial;
+              this.rocket.reuseCount = core.reuse_count;
             }
           })
           .catch((err) => console.error(err.message));

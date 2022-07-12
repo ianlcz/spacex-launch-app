@@ -32,7 +32,7 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import DefaultLayout from "@/layouts/Default.layout.vue";
-import { ILaunch, Launch } from "@/models/launch.model";
+import { Launch } from "@/models/launch.model";
 import LaunchInformationComponent from "@/components/Home/LaunchInformation.component.vue";
 import CountdownComponent from "@/components/Home/Countdown/Countdown.component.vue";
 import YoutubePlayerComponent from "@/components/YouTubePlayer.component.vue";
@@ -46,7 +46,7 @@ export default defineComponent({
     YoutubePlayerComponent,
   },
   data: (): {
-    launch?: ILaunch;
+    launch?: Launch;
     now: Date;
   } => ({
     launch: new Launch(),

@@ -1,15 +1,7 @@
-import { IPad, Pad } from "./pad.model";
 import axios from "axios";
+import { Pad } from "./pad.model";
 
-export interface ILandpad extends IPad {
-  type?: string;
-  landings?: number;
-  failures?: number;
-  isAttempt: boolean;
-  isSuccess: boolean;
-}
-
-export class Landpad extends Pad implements ILandpad {
+export class Landpad extends Pad {
   public type?: string;
   public landings?: number;
   public failures?: number;

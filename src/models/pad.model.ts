@@ -1,15 +1,6 @@
 import axios from "axios";
 
-export interface IPad {
-  name?: string;
-  about?: string;
-  locality?: string;
-  region?: string;
-  success_rate?: number;
-  getOne(pad_id: string, latitude?: number, longitude?: number): void;
-}
-
-export abstract class Pad implements IPad {
+export abstract class Pad {
   public name?: string;
   public about?: string;
   public locality?: string;

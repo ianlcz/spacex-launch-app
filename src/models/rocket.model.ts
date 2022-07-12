@@ -1,23 +1,10 @@
 import axios from "axios";
 
-export interface IRocket {
-  name?: string;
-  description?: string;
-  serial?: string;
-  engine?: { type: string; version: string };
-  block?: number;
-  type?: string;
-  stages?: number;
-  boosters?: number;
-  features?: { mass: number; height: number; diameter: number };
-  isReused?: boolean;
-  getOne(rocket_id: string): void;
-}
-
-export class Rocket implements IRocket {
+export class Rocket {
   public name?: string;
   public description?: string;
   public serial?: string;
+  public reuseCount?: number;
   public engine?: { type: string; version: string };
   public block?: number;
   public type?: string;
@@ -44,7 +31,8 @@ export class Rocket implements IRocket {
           height: rocket.height.meters,
           diameter: rocket.diameter.meters,
         };
-        this.isReused = rocket.second_stage.reusable;
+        this.isReused =
+          rocket.first_stage.reusable || rocket.second_stage.reusable;
       })
       .catch((err) => console.error(err.message));
   }

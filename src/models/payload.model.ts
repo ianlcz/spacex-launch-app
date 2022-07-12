@@ -1,17 +1,6 @@
 import axios from "axios";
 
-export interface IPayload {
-  name?: string;
-  type?: string;
-  mass?: number;
-  target_orbit?: string;
-  reference_system?: string;
-  customers?: string[];
-  nationalities?: string[];
-  manufacturers?: string[];
-}
-
-export class Payload implements IPayload {
+export class Payload {
   public name?: string;
   public type?: string;
   public mass?: number;
