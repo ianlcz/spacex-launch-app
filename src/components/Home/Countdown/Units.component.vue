@@ -3,7 +3,6 @@
     <span class="units-value">{{ value }}</span>
     <span class="units-name">{{ value > 1 ? name + "s" : name }}</span>
   </div>
-  {{ name !== "Second" ? ":" : undefined }}
 </template>
 
 <script lang="ts">
@@ -22,19 +21,25 @@ export default defineComponent({
 div.units {
   display: flex;
   flex-direction: column;
-  width: 2em;
-  margin: 0 0.2em;
-  padding: 0.26em;
+  margin: 0 0.24em;
   text-align: center;
-  border-radius: 6px;
-  background: #475569;
 }
 div.units:last-child {
   margin-right: 0;
 }
 
+div.units > span.units-value {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2em;
+  height: 2em;
+  border-radius: 10px;
+  background: #475569;
+}
+
 div.units > span.units-name {
-  margin-top: 0.6em;
+  margin-top: 0.8em;
   font-family: D-DIN, Arial, Verdana, sans-serif;
   font-size: small;
   font-weight: 100;

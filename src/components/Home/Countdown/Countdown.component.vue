@@ -83,7 +83,7 @@ div.countdown {
 }
 
 div.countdown > span {
-  margin-right: 0.4em;
+  margin-right: 0.6em;
   font-family: D-DIN, Arial, Verdana, sans-serif;
 }
 </style>
