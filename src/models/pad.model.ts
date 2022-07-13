@@ -6,9 +6,14 @@ export abstract class Pad {
   public locality?: string;
   public region?: string;
   public success_rate?: number;
-  protected weather: { name: string | null; temperature: number } = {
+  protected weather: {
+    name: string | null;
+    temperature: number;
+    wind_speed: number;
+  } = {
     name: null,
     temperature: 0,
+    wind_speed: 0,
   };
 
   protected getWeather(latitude: number, longitude: number): void {
@@ -21,6 +26,7 @@ export abstract class Pad {
 
         this.weather.name = weather.weather[0].main;
         this.weather.temperature = Math.round(weather.main.temp);
+        this.weather.wind_speed = Number((weather.wind.speed * 3.6).toFixed(1));
       })
       .catch((err) => console.error(err.message));
   }
