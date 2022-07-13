@@ -78,7 +78,7 @@ export default defineComponent({
 div.countdown {
   display: flex;
   flex-direction: row;
-  align-items: center;
+  align-items: baseline;
   font-size: 26px;
 }
 
