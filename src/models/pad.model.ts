@@ -6,7 +6,14 @@ export abstract class Pad {
   public locality?: string;
   public region?: string;
   public success_rate?: number;
-  protected weather: {
+  public geographic_coordinates: {
+    latitude: number | null;
+    longitude: number | null;
+  } = {
+    latitude: null,
+    longitude: null,
+  };
+  public weather: {
     name: string | null;
     temperature: number;
     wind_speed: number;
@@ -16,10 +23,10 @@ export abstract class Pad {
     wind_speed: 0,
   };
 
-  protected getWeather(latitude: number, longitude: number): void {
+  protected getWeather(): void {
     axios
       .get(
-        `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=metric&appid=${process.env.VUE_APP_OPENWEATHER_API_KEY}`
+        `https://api.openweathermap.org/data/2.5/weather?lat=${this.geographic_coordinates.latitude}&lon=${this.geographic_coordinates.longitude}&units=metric&appid=${process.env.VUE_APP_OPENWEATHER_API_KEY}`
       )
       .then((response) => {
         const weather = response.data;

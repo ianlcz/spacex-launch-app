@@ -17,14 +17,13 @@
 
         <countdown-component
           :launchDate="launch.date"
-          v-if="
-            launch.date &&
-            now.getTime() < launch.date.getTime() + 30 * 60 * 1000
-          "
+          v-if="launch.date && now.getTime() < launch.date.getTime()"
         />
       </div>
 
       <youtube-player-component :youtubeId="launch.youtube_id" />
+
+      <card-component title="Launch" :weather="launch.launch_site.weather" />
     </div>
   </default-layout>
 </template>
@@ -36,6 +35,7 @@ import { Launch } from "@/models/launch.model";
 import LaunchInformationComponent from "@/components/Home/LaunchInformation.component.vue";
 import CountdownComponent from "@/components/Home/Countdown/Countdown.component.vue";
 import YoutubePlayerComponent from "@/components/YouTubePlayer.component.vue";
+import CardComponent from "@/components/Card.component.vue";
 
 export default defineComponent({
   name: "HomeView",
@@ -44,6 +44,7 @@ export default defineComponent({
     LaunchInformationComponent,
     CountdownComponent,
     YoutubePlayerComponent,
+    CardComponent,
   },
   data: (): {
     launch?: Launch;
@@ -62,7 +63,7 @@ export default defineComponent({
 div.home {
   display: flex;
   flex-direction: column;
-  width: 70%;
+  width: 80%;
   margin: 0 auto;
 }
 

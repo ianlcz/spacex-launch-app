@@ -1,12 +1,12 @@
 <template>
   <div class="launch-information">
     <h1 :class="now >= launchDate ? 'text-center' : 'text-left'">
-      {{ now >= launchDate ? "Current launch" : "Next launch" }}
+      Next launch
     </h1>
 
     <h2>{{ launchName }}</h2>
 
-    <p v-if="now < launchDate">
+    <p :class="now >= launchDate ? 'text-center' : 'text-left'">
       {{ dateFormat(launchDate) }}
     </p>
   </div>
@@ -55,10 +55,10 @@ div.launch-information > h1.text-left {
   font-size: 20px;
   font-weight: 100;
 }
-div.launch-information > h1.text-center {
+div.launch-information > .text-center {
   text-align: center;
 }
-div.launch-information > h1.text-left {
+div.launch-information > .text-left {
   text-align: left;
 }
 

@@ -14,7 +14,7 @@
 import { defineComponent } from "vue";
 
 export default defineComponent({
-  name: "YouTubePlayer",
+  name: "YouTubePlayerComponent",
   props: {
     youtubeId: { type: String as () => string | null },
   },

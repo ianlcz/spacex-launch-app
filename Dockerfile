@@ -1,5 +1,7 @@
 FROM node:lts-alpine
 
+LABEL maintainer="ianlcz.io"
+
 WORKDIR /app
 
 COPY package*.json ./

@@ -1,8 +1,10 @@
 import axios from "axios";
+import { toCapitalize } from "@/utils";
 
 export class Rocket {
   public name?: string;
   public description?: string;
+  public configuration?: string;
   public serial?: string;
   public reuseCount?: number;
   public engine?: { type: string; version: string };
@@ -22,7 +24,8 @@ export class Rocket {
 
         this.name = rocket.name;
         this.description = rocket.description;
-        this.engine = { type, version };
+        this.configuration = toCapitalize(rocket.payloads.option_1);
+        this.engine = { type: toCapitalize(type), version };
         this.type = rocket.type;
         this.stages = rocket.stages;
         this.boosters = rocket.boosters;

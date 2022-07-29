@@ -34,7 +34,7 @@ div.units > span.units-value {
   justify-content: center;
   width: 2em;
   height: 2em;
-  border-radius: 10px;
+  border-radius: 8px;
   background: #475569;
 }
 
